@@ -14,8 +14,9 @@ class CrearTablaLocations extends Migration
     public function up()
     {
         Schema::create('locations', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->timestamps();
+            $table->increments('id');
+            $table->string('longitud');
+            $table->string('latitud');
         });
     }
 

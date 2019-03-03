@@ -14,9 +14,18 @@ class CrearTablaRedes extends Migration
     public function up()
     {
         Schema::create('redes', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->timestamps();
+            $table->increments('id');
+            $table->string('tipoRed');
+            $table->string('nombreRed');
+            $table->string('passwordRed');
+            $table->boolean('estadoRed');
+            $table->unsignedInteger('idLocations');
+           
         });
+        Schema::table('redes', function($table) {
+            $table->foreign('idLocations')->references('id')->on('locations');
+        });
+
     }
 
     /**
