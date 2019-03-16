@@ -19,11 +19,13 @@ class CrearTablaRedes extends Migration
             $table->string('nombreRed');
             $table->string('passwordRed');
             $table->boolean('estadoRed');
-            $table->unsignedInteger('idLocations');
+            $table->string('latitud');
+            $table->string('longitud');
+            $table->unsignedInteger('idUser');
            
         });
         Schema::table('redes', function($table) {
-            $table->foreign('idLocations')->references('id')->on('locations');
+            $table->foreign('idUser')->references('id')->on('users');
         });
 
     }
