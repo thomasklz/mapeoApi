@@ -9,10 +9,10 @@ class Redes extends Model
    protected $table = 'redes';
     public $timestamps= false;
    protected $fillable = [
-        'tipoRed', 'nombreRed', 'passwordRed','estadoRed','idLocations'
+        'tipoRed', 'nombreRed', 'passwordRed','estadoRed','latitud','longitud','idUser'
     ];
    
-    public  function location (){
-      return $this->belongsTo(Locations::class, 'idLocations');
+    public  function user (){
+      return $this->belongsTo(Users::class, 'idUser');
     }
 }
