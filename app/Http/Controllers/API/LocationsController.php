@@ -31,10 +31,10 @@ class LocationsController extends Controller
         return response()->json(['message'=>'No se permiten valores nulos', 'code'=>'422'], 422);
         }
 
-        $red = new Locations();
-        $red->longitud= $request->longitud;
-        $red->latitud= $request->latitud;
-        $red->save();
+        $locations = new Locations();
+        $locations->longitud= $request->longitud;
+        $locations->latitud= $request->latitud;
+        $locations->save();
         return response()->json(['message'=>'Registo correcto', 'code'=>'201'], 201);
     }
 
