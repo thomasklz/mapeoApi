@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Locations;
 
 class LocationsController extends Controller
 {
@@ -25,7 +26,15 @@ class LocationsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if((empty($request->longitud)) || (empty($request->latitud))){            return response()->json(['message'=>'No se permiten valores nulos', 'code'=>'422'], 422);
+        return response()->json(['message'=>'No se permiten valores nulos', 'code'=>'422'], 422);
+        }
+
+        $red = new Locations();
+        $red->longitud= $request->longitud;
+        $red->latitud= $request->latitud;
+        $red->save();
+        return response()->json(['message'=>'Registo correcto', 'code'=>'201'], 201);
     }
 
     /**
