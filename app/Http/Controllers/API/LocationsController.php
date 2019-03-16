@@ -27,7 +27,7 @@ class LocationsController extends Controller
      */
     public function store(Request $request)
     {
-        if((empty($request->longitud)) || (empty($request->latitud))){            return response()->json(['message'=>'No se permiten valores nulos', 'code'=>'422'], 422);
+        if((empty($request->longitud)) || (empty($request->latitud))){
         return response()->json(['message'=>'No se permiten valores nulos', 'code'=>'422'], 422);
         }
 
