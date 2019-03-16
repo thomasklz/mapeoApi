@@ -15,7 +15,8 @@ class LocationsController extends Controller
      */
     public function index()
     {
-        //
+        $locations= Locations::all();
+        return response()->json(['locations'=>$locations], 200);
     }
 
     /**
