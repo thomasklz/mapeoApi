@@ -28,10 +28,7 @@ class RedesController extends Controller
      */
     public function store(Request $request)
     {
-        if((empty($request->tipoRed)) || (empty($request->nombreRed))||
-           (empty($request->passwordRed))|| (empty($request->estadoRed))||
-           (empty($request->latitud))|| (empty($request->longitud))||
-           (empty($request->idUser))){
+        if((empty($request->tipoRed)) || (empty($request->nombreRed))||(empty($request->passwordRed))|| (empty($request->estadoRed))|| (empty($request->latitud))|| (empty($request->longitud))|| (empty($request->idUser))){
                 return response()->json(['message'=>'No se permiten valores nulos', 'code'=>'422'], 422);
         }else{
             $user = Users::find($request->idUser);
