@@ -65,8 +65,13 @@ class RedesController extends Controller
         }
     }
     public function getreduser($id){
-        $redes= Redes::where('idUser', $id)->take(10)->get(); 
-        return response()->json(['redes'=>$redes], 200);
+        $user= Users::find($id);
+         if($user==null){
+            return response()->json(['message'=>'Usuario no encontrado', 'code'=>'404'], 404);
+        }else{
+            $redes= Redes::where('idUser', $id)->take(10)->get(); 
+            return response()->json(['redes'=>$redes], 200);
+        }
     }
     /*
     **
