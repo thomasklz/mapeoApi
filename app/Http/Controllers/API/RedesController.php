@@ -64,8 +64,12 @@ class RedesController extends Controller
             return response()->json(['red'=>$red], 200);
         }
     }
-
-    /**
+    public function getreduser($id){
+        $redes= Redes::where('idUser', $id)->take(10)->get(); 
+        return response()->json(['redes'=>$redes], 200);
+    }
+    /*
+    **
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request

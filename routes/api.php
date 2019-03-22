@@ -20,6 +20,6 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-
+Route::get('v01/user/red/{id}', 'API\RedesController@getreduser');
 Route::apiResource('v01/users', 'API\UsersController');
 Route::apiResource('v01/redes', 'API\RedesController');
