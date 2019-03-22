@@ -70,7 +70,7 @@ class RedesController extends Controller
             return response()->json(['message'=>'Usuario no encontrado', 'code'=>'404'], 404);
         }else{
             $redes= Redes::where('idUser', $id)->take(10)->get(); 
-             if($user==null){
+             if($redes==null){
                 return response()->json(['message'=>'No hay redes disponibles', 'code'=>'200'], 200);
              }else{
                 return response()->json(['redes'=>$redes], 200);
