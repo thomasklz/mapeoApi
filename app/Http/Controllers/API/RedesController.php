@@ -88,7 +88,19 @@ class RedesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $red= Redes::where('id',$id)->get();
+        if($red==null){
+            return response()->json(['message'=>'No se encontró la red', 'code'=>'404'], 404);
+        }else{
+            if($red->estadoRed==1){
+                $red->estadoRed=0;
+                $red->save();
+            }else{
+                $red->estadoRed= 1;
+                $red->save();
+            }
+            return response()->json(['message'=>'Proceso realizado correctamente'], 200);
+        }
     }
 
     /**
