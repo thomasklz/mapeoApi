@@ -16,7 +16,7 @@ class RedesController extends Controller
      */
     public function index()
     {
-        $redes= Redes::with('user:id,user')->get();
+        $redes= Redes::with('user:id,user')->orderBy('id', 'DESC')->get();
         return response()->json(['redes'=>$redes], 200);
     }
 
