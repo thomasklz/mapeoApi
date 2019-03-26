@@ -92,8 +92,7 @@ class RedesController extends Controller
         if($red==null){
             return response()->json(['message'=>'No se encontró la red', 'code'=>'404'], 404);
         }else{
-            $red->estadoRed= $request->estadoRed;
-            $red->save();
+            $red->update(['estadoRed' => $request->estadoRed]);
             return response()->json(['message'=>'Proceso realizado correctamente'], 200);
         }
     }
