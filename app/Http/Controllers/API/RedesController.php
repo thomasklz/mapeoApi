@@ -46,7 +46,8 @@ class RedesController extends Controller
         $red->longitud= $request->longitud;
         $red->idUser= $request->idUser;
         $red->save();
-        return response()->json(['message'=>'Registo correcto', 'code'=>'201'], 201);
+        $id_red=$red->id;
+        return response()->json(['message'=>'Registo correcto', 'code'=>'201', 'id'=> $id_red], 201);
     }
 
     /**
