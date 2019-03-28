@@ -63,7 +63,7 @@ class UsersController extends Controller
 
       
        
-        return response()->json(['message'=>$request->file('file')], 200);
+        return response()->json(['message'=>$request], 200);
     }
     /**
      * Remove the specified resource from storage.
