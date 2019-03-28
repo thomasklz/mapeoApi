@@ -54,7 +54,7 @@ class UsersController extends Controller
     
     public function changeimage(Request $request, $id){
 
-        $file = $request->file('name');
+        $file = $request->file('file');
         $fileName = $file->getClientOriginalName();
         $path = public_path() . '/imagenes';
         $file->move($path, $fileName); 
