@@ -52,11 +52,18 @@ class UsersController extends Controller
         //
     }
     
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function changeimage(Request $request, $id){
 
       
        
-        return response()->json(['message'=>$request], 200);
+        return response()->json(['message'=>$request->files('file')], 200);
     }
     /**
      * Remove the specified resource from storage.
