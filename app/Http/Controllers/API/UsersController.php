@@ -54,9 +54,9 @@ class UsersController extends Controller
     
     public function changeimage(Request $request, $id){
 
-        $file = $request->file('file');
+      
        
-        return response()->json(['message'=>$file], 200);
+        return response()->json(['message'=>$request], 200);
     }
     /**
      * Remove the specified resource from storage.
