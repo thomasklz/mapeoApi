@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Users;
 
 class UsersController extends Controller
 {
@@ -50,7 +51,17 @@ class UsersController extends Controller
     {
         //
     }
+    
+    public function changeimage(Request $request, $id){
 
+      /*   $file = $request->file('nombre');
+        $fileName = $file->getClientOriginalName();
+        $path = public_path() . '/documentos';
+        $file->move($path, $fileName); */
+        $image=Users::where('id', $id)->first(); 
+        $image->imagen = $request->imagen;
+        $image->save();
+    }
     /**
      * Remove the specified resource from storage.
      *

@@ -20,6 +20,7 @@ class CrearTablaUsers extends Migration
             $table->date('f_nacimiento');
             $table->string('email')->unique();
             $table->string('user')->unique();
+            $table->string('imagen',150);
             $table->string('passsword');
         });
     }
