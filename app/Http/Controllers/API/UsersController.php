@@ -54,13 +54,14 @@ class UsersController extends Controller
     
     public function changeimage(Request $request, $id){
 
-      /*   $file = $request->file('nombre');
+        $file = $request->file('name');
         $fileName = $file->getClientOriginalName();
-        $path = public_path() . '/documentos';
-        $file->move($path, $fileName); */
+        $path = public_path() . '/imagenes';
+        $file->move($path, $fileName); 
         $image=Users::where('id', $id)->first(); 
-        $image->imagen = $request->imagen;
+        $image->imagen = $fileName;
         $image->save();
+        return response()->json(['message'=>'imagen actualizada'], 200);
     }
     /**
      * Remove the specified resource from storage.
