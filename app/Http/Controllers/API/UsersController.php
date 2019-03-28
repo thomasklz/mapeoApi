@@ -5,7 +5,7 @@ namespace App\Http\Controllers\API;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Users;
-
+use Response;
 class UsersController extends Controller
 {
     /**
@@ -63,7 +63,7 @@ class UsersController extends Controller
 
       
        
-        return response()->json(['message'=>$request], 200);
+        return response()->json(['message'=>$request,'id'=>$id], 200);
     }
     /**
      * Remove the specified resource from storage.
