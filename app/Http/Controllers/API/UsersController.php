@@ -5,7 +5,6 @@ namespace App\Http\Controllers\API;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Users;
-use App\Http\Requests\JsonRequest;
 
 class UsersController extends Controller
 {
@@ -50,10 +49,10 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //bcrypt($request->get('password'));
+        //
     }
     
-    public function changeimage(JsonRequest  $request){
+    public function changeimage(Request $request){
 
         //$file = $request->file('file');
         if($request->hasfile('imagen'))
