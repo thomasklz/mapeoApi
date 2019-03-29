@@ -72,7 +72,7 @@ class UsersController extends Controller
         $image=Users::where('id', $id)->first(); 
         $image->imagen = $fileName;
         $image->save(); */
-         return response()->json(['message'=>'Proceso realizado correctamente','name'=> $request->replace($request->file('imagen'))], 200);
+         return response()->json(['message'=>'Proceso realizado correctamente','name'=> $request->file('imagen')], 200);
     }
     /**
      * Remove the specified resource from storage.
