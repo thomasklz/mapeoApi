@@ -55,6 +55,7 @@ class UsersController extends Controller
     public function changeimage(Request $request){
 
         //$file = $request->file('file');
+         $target_dir = "imagenes/";
         $target_file = $target_dir . basename($_FILES["file"]["name"]);
         if($request->hasfile('imagen'))
          {
