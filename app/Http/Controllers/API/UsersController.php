@@ -53,8 +53,6 @@ class UsersController extends Controller
     }
     
     public function changeimage(Request $request, $id){
-
-        //$file = $request->file('file');
         $target_dir = public_path()."/imagenes/";
         $target_file = $target_dir . basename($_FILES["file"]["name"]);
         $uploadOk = 1;
@@ -67,7 +65,7 @@ class UsersController extends Controller
                 $image=Users::where('id', $id)->first(); 
                 $image->imagen = basename( $_FILES["file"]["name"]);
                 $image->save();
-                return response()->json(['message'=>'The file '. basename( $_FILES["file"]["name"]). ' has been uploaded.'], 200);
+                return response()->json(['message'=>'The file has been uploaded.'], 200);
             } else {
                 return response()->json(['message'=>'Error al subir imagen'], 400);
             }
