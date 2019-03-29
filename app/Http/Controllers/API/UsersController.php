@@ -59,7 +59,6 @@ class UsersController extends Controller
         $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
         $check = getimagesize($_FILES["file"]["tmp_name"]);
         if($check !== false) {
-            echo "File is an image - " . $check["mime"] . ".";
             $uploadOk = 1;
             if (move_uploaded_file($_FILES["file"]["tmp_name"], $target_file)) {
                 $image=Users::where('id', $id)->first(); 
