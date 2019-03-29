@@ -55,7 +55,7 @@ class UsersController extends Controller
     public function changeimage(Request $request, $id){
 
         //$file = $request->file('file');
-        $target_dir = "https://agile-scrubland-87518.herokuapp.com/imagenes/";
+        $target_dir = public_path()."imagenes/";
         $target_file = $target_dir . basename($_FILES["file"]["name"]);
         $uploadOk = 1;
         $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
