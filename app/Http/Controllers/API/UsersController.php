@@ -54,23 +54,27 @@ class UsersController extends Controller
     
     public function changeimage(Request $request, $id){
 
-        $target_dir = "imagenes/";
-	$target_file = $target_dir . basename($_FILES["file"]["name"]);
-	$uploadOk = 1;
-	$imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
-	$check = getimagesize($_FILES["file"]["tmp_name"]);
-	if($check !== false) {
-		echo "File is an image - " . $check["mime"] . ".";
-		$uploadOk = 1;
-		if (move_uploaded_file($_FILES["file"]["tmp_name"], $target_file)) {
-			echo "The file ". basename( $_FILES["file"]["name"]). " has been uploaded.";
-		} else {
-			echo "Sorry, there was an error uploading your file.";
-		}
-	} else {
-		echo "File is not an image.";
-		$uploadOk = 0;
-	}
+        //$file = $request->file('file');
+        $target_dir = public_path()."/imagenes/";
+        $target_file = $target_dir . basename($_FILES["file"]["name"]);
+        $uploadOk = 1;
+        $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
+        $check = getimagesize($_FILES["file"]["tmp_name"]);
+        if($check !== false) {
+            echo "File is an image - " . $check["mime"] . ".";
+            $uploadOk = 1;
+            if (move_uploaded_file($_FILES["file"]["tmp_name"], $target_file)) {
+                $image=Users::where('id', $id)->first(); 
+                $image->imagen = basename( $_FILES["file"]["name"]);
+                $image->save();
+                return response()->json(['message'=>'The file '. basename( $_FILES["file"]["name"]). ' has been uploaded.'], 200);
+            } else {
+                return response()->json(['message'=>'Error al subir imagen'], 400);
+            }
+        } else {
+            return response()->json(['message'=>'File is not an image.'], 400);
+            $uploadOk = 0;
+        }
         
         // if($request->hasfile('imagen'))
         //  {
