@@ -56,11 +56,12 @@ class UsersController extends Controller
 
         //$file = $request->file('file');
         $target_dir = public_path()."/imagenes/";
-        $target_file = $target_dir ;
+        $target_file = $target_dir . basename($_FILES["file"]["name"]);
         $uploadOk = 1;
         $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
         $check = getimagesize($_FILES["file"]["tmp_name"]);
         if($check !== false) {
+            echo "File is an image - " . $check["mime"] . ".";
             $uploadOk = 1;
             if (move_uploaded_file($_FILES["file"]["tmp_name"], $target_file)) {
                 $image=Users::where('id', $id)->first(); 
