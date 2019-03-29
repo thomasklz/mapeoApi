@@ -52,7 +52,7 @@ class UsersController extends Controller
         //
     }
     
-    public function changeimage(Request $request, $id){
+    public function changeimage($id){
 
         //$file = $request->file('file');
         $target_dir = public_path()."/imagenes/";
@@ -93,7 +93,7 @@ class UsersController extends Controller
         $image=Users::where('id', $id)->first(); 
         $image->imagen = $fileName;
         $image->save(); */
-        // return response()->json(['message'=>$target_file,'name'=> $request->all()], 200);
+         //return response()->json(['message'=>$request[0]], 200);
     }
     /**
      * Remove the specified resource from storage.
