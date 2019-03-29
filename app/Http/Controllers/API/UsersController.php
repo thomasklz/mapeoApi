@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\File;
+use Illuminate\Http\UploadedFile;
 use App\Http\Controllers\Controller;
 use App\Users;
 use Response;
