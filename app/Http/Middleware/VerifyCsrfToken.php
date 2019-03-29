@@ -19,6 +19,6 @@ class VerifyCsrfToken extends Middleware
      * @var array
      */
     protected $except = [
-        //
+       'https://agile-scrubland-87518.herokuapp.com/api/v01/user/imagen'
     ];
 }
