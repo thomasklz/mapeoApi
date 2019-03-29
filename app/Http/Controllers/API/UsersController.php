@@ -62,7 +62,7 @@ class UsersController extends Controller
      */
     public function changeimage(Request $request, $id)
     {
-        return response()->json(['message'=>base64_encode($request->file('images')),'id'=>$id], 200);
+        return response()->json(['message'=>$request->file('images'),'id'=>$id], 200);
     }
     /**
      * Remove the specified resource from storage.
