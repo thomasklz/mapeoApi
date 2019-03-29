@@ -3,10 +3,9 @@
 namespace App\Http\Controllers\API;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\UploadedFile;
 use App\Http\Controllers\Controller;
 use App\Users;
-use Response;
+
 class UsersController extends Controller
 {
     /**
@@ -53,17 +52,16 @@ class UsersController extends Controller
         //
     }
     
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function changeimage(Request $request, $id)
-    {
-        $dete=$request->all();
-        return response()->json(['message'=>$dete,'id'=>$id], 200);
+    public function changeimage(Request $request, $id){
+
+        $file = $request->file('file');
+        $fileName = $file->getClientOriginalName();
+        $path = public_path() . '/imagenes';
+        $file->move($path, $fileName); 
+        $image=Users::where('id', $id)->first(); 
+        $image->imagen = $fileName;
+        $image->save();
+         return response()->json(['message'=>'Proceso realizado correctamente','name'=> $file], 200);
     }
     /**
      * Remove the specified resource from storage.
