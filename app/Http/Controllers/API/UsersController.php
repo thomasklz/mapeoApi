@@ -55,12 +55,12 @@ class UsersController extends Controller
     public function changeimage(Request $request, $id){
 
         $file = $request->file('file');
-        $fileName = $file->getClientOriginalName();
+        /* $fileName = $file->getClientOriginalName();
         $path = public_path() . '/imagenes';
         $file->move($path, $fileName); 
         $image=Users::where('id', $id)->first(); 
         $image->imagen = $fileName;
-        $image->save();
+        $image->save(); */
          return response()->json(['message'=>'Proceso realizado correctamente','name'=> $file], 200);
     }
     /**
