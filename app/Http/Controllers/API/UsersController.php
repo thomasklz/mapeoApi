@@ -52,7 +52,7 @@ class UsersController extends Controller
         //
     }
     
-    public function changeimage(Request $request, $id){
+    public function changeimage(Request $request){
 
         $file = $request->file('file');
         /* $fileName = $file->getClientOriginalName();
