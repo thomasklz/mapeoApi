@@ -52,10 +52,10 @@ class UsersController extends Controller
         //
     }
     
-    public function changeimage(Request $request){
+    public function changeimage(Request $request, $id){
 
         //$file = $request->file('file');
-        $target_dir = "imagenes/";
+        $target_dir = "https://agile-scrubland-87518.herokuapp.com/imagenes/";
         $target_file = $target_dir . basename($_FILES["file"]["name"]);
         $uploadOk = 1;
         $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
@@ -63,6 +63,9 @@ class UsersController extends Controller
         if($check !== false) {
             $uploadOk = 1;
             if (move_uploaded_file($_FILES["file"]["tmp_name"], $target_file)) {
+                $image=Users::where('id', $id)->first(); 
+                $image->imagen = basename( $_FILES["file"]["name"]);
+                $image->save();
                 return response()->json(['message'=>'The file '. basename( $_FILES["file"]["name"]). ' has been uploaded.'], 200);
             } else {
                 return response()->json(['message'=>'Error al subir imagen'], 400);
