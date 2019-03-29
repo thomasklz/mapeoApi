@@ -62,7 +62,8 @@ class UsersController extends Controller
      */
     public function changeimage(Request $request, $id)
     {
-        return response()->json(['message'=>$_POST['file'],'id'=>$id], 200);
+        $dete=$_POST['file'];
+        return response()->json(['message'=>$dete,'id'=>$id], 200);
     }
     /**
      * Remove the specified resource from storage.
