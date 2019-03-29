@@ -62,7 +62,7 @@ class UsersController extends Controller
      */
     public function changeimage(Request $request, $id)
     {
-        $dete=$_POST['file'];
+        $dete=$request->all();
         return response()->json(['message'=>$dete,'id'=>$id], 200);
     }
     /**
