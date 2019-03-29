@@ -1,17 +1,14 @@
-
-
-
 <?php
-    $target_dir = "images/";
-	$target_file = $target_dir . basename($_FILES["photo"]["name"]);
+    $target_dir = "imagenes/";
+	$target_file = $target_dir . basename($_FILES["file"]["name"]);
 	$uploadOk = 1;
 	$imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
-	$check = getimagesize($_FILES["photo"]["tmp_name"]);
+	$check = getimagesize($_FILES["file"]["tmp_name"]);
 	if($check !== false) {
 		echo "File is an image - " . $check["mime"] . ".";
 		$uploadOk = 1;
-		if (move_uploaded_file($_FILES["photo"]["tmp_name"], $target_file)) {
-			echo "The file ". basename( $_FILES["photo"]["name"]). " has been uploaded.";
+		if (move_uploaded_file($_FILES["file"]["tmp_name"], $target_file)) {
+			echo "The file ". basename( $_FILES["file"]["name"]). " has been uploaded.";
 		} else {
 			echo "Sorry, there was an error uploading your file.";
 		}
