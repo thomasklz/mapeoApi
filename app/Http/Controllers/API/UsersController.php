@@ -26,7 +26,18 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user= new Users();
+        $user->nombre= $request->nombre;
+        $user->apellido= $request->apellido;
+        $user->f_nacimiento= $request->f_nacimiento;
+        $user->email= $request->email;
+        $user->user= $request->user;
+        $user->imagen= $request->imagen;
+        $user->passsword= $request->passsword;
+        $user->save();
+        $userId=$user->id;
+        $userUser=$user->user;
+        return response()->json(['message'=>'usuario guardado', 'userId'=>$userId, 'user'=>$userUser], 200);      
     }
 
     /**
@@ -72,25 +83,6 @@ class UsersController extends Controller
             return response()->json(['message'=>'File is not an image.'], 400);
             $uploadOk = 0;
         }
-        
-        // if($request->hasfile('imagen'))
-        //  {
-
-        //     foreach($request->file('imagen') as $image)
-        //     {
-        //         $name=$image->getClientOriginalName();
-        //         $image->move(public_path().'/images/', $name);  
-        //         $data[] = $name;  
-        //     }
-        //  }
-         
-        /* $fileName = $file->getClientOriginalName();
-        $path = public_path() . '/imagenes';
-        $file->move($path, $fileName); 
-        $image=Users::where('id', $id)->first(); 
-        $image->imagen = $fileName;
-        $image->save(); */
-         //return response()->json(['message'=>$request[0]], 200);
     }
     /**
      * Remove the specified resource from storage.
