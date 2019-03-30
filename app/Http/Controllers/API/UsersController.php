@@ -26,18 +26,24 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        $user= new Users();
-        $user->nombre= $request->nombre;
-        $user->apellido= $request->apellido;
-        $user->f_nacimiento= $request->f_nacimiento;
-        $user->email= $request->email;
-        $user->user= $request->user;
-        $user->imagen= $request->imagen;
-        $user->passsword= $request->passsword;
-        $user->save();
-        $userId=$user->id;
-        $userUser=$user->user;
-        return response()->json(['message'=>'usuario guardado', 'userId'=>$userId, 'user'=>$userUser], 200);      
+       if((empty($request->nombre)) || (empty($request->apellido))||(empty($request->f_nacimiento))
+       || (empty($request->email))|| (empty($request->user))|| (empty($request->imagen))
+       || (empty($request->passsword))){
+                return response()->json(['message'=>'No se permiten valores nulos', 'code'=>'422'], 422);
+        }else{   
+            $user= new Users();
+            $user->nombre= $request->nombre;
+            $user->apellido= $request->apellido;
+            $user->f_nacimiento= $request->f_nacimiento;
+            $user->email= $request->email;
+            $user->user= $request->user;
+            $user->imagen= $request->imagen;
+            $user->passsword= $request->passsword;
+            $user->save();
+            $userId=$user->id;
+            $userUser=$user->user;
+            return response()->json(['message'=>'usuario guardado', 'userId'=>$userId, 'user'=>$userUser], 200);      
+        }
     }
 
     /**
