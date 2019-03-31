@@ -84,8 +84,7 @@ class UsersController extends Controller
     public function update(Request $request, $id)
     {
         
-        if((empty($request->nombre)) || (empty($request->apellido))||(empty($request->f_nacimiento))
-       || (empty($request->email))){
+        if((empty($request->nombre)) || (empty($request->apellido))||(empty($request->f_nacimiento))|| (empty($request->email))){
                 return response()->json(['message'=>'No se permiten valores nulos', 'code'=>'422'], 422);
         }else{
             $user= Users::where('id',$id)->first();
