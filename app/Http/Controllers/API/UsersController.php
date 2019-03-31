@@ -31,7 +31,6 @@ class UsersController extends Controller
        || (empty($request->passsword))){
                 return response()->json(['message'=>'No se permiten valores nulos', 'code'=>'422'], 422);
         }else{ 
-            
             $email=Users::where('email',$request->email)->first();
             $usuario=Users::where('user',$request->user)->first();
             if($email){
@@ -84,7 +83,22 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        
+        if((empty($request->nombre)) || (empty($request->apellido))||(empty($request->f_nacimiento))
+       || (empty($request->email))){
+                return response()->json(['message'=>'No se permiten valores nulos', 'code'=>'422'], 422);
+        }else{
+            $user= Users::where('id',$id)->first();
+            if($user==null){
+                return response()->json(['message'=>'No se encontró el usuario', 'code'=>'404'], 404);
+            }
+                $user->nombre= $request->nombre;
+                $user->apellido= $request->apellido;
+                $user->f_nacimiento= $request->f_nacimiento;
+                $user->email= $request->email;
+                $user->save();
+            return response()->json(['message'=>'Proceso realizado correctamente'], 200);
+        }
     }
     
     public function changeimage(Request $request, $id){
