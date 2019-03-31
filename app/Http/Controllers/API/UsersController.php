@@ -32,8 +32,8 @@ class UsersController extends Controller
                 return response()->json(['message'=>'No se permiten valores nulos', 'code'=>'422'], 422);
         }else{ 
             
-            $email=Users::where('email',$request->email)->get();
-            $usuario=Users::where('user',$request->user)->get();
+            $email=Users::where('email',$request->email)->first();
+            $usuario=Users::where('user',$request->user)->first();
             if($email){
                 return response()->json(['message'=>'el correo que ingresó ya existe', 'code'=>'422'], 422);
             }
