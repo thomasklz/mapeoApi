@@ -30,7 +30,16 @@ class UsersController extends Controller
        || (empty($request->email))|| (empty($request->user))|| (empty($request->imagen))
        || (empty($request->passsword))){
                 return response()->json(['message'=>'No se permiten valores nulos', 'code'=>'422'], 422);
-        }else{   
+        }else{ 
+            
+            $email=User::where('email',$request->email)->get();
+            $usuario=User::where('user',$request->user)->get();
+            if(!empty($email)){
+                return response()->json(['message'=>'el correo que ingresó ya existe', 'code'=>'422'], 422);
+            }
+             if(!empty($usuario)){
+                return response()->json(['message'=>'el usuario que ingresó ya existe', 'code'=>'422'], 422);
+            }
             $user= new Users();
             $user->nombre= $request->nombre;
             $user->apellido= $request->apellido;
