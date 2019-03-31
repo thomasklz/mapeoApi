@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
 use App\Users;
 
 class UsersController extends Controller
@@ -16,6 +17,25 @@ class UsersController extends Controller
     public function index()
     {
         //
+    }
+    public function login(Request $request)
+    {
+       if((empty($request->usuario)) || (empty($request->contraseña))){
+                return response()->json(['message'=>'No se permiten valores nulos', 'code'=>'422'], 422);
+        }else{ 
+            $usuario=Users::where('user',$request->user)->first();
+            if($usuario==null){
+                return response()->json(['message'=>'usuario y/o contraseña incorrecta', 'code'=>'404'], 404);  
+            }
+            if (Hash::check($request->passsword, $usuario->passsword))
+            {
+                return response()->json(['message'=>'login correcto', 'userId'=>$usuario->id, 'user'=>$usuario->user], 200);      
+            }else{
+                return response()->json(['message'=>'usuario y/o contraseña incorrecta','code'=>'404'], 404);      
+            }
+          
+            
+        }
     }
 
     /**
