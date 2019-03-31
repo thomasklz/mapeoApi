@@ -38,7 +38,8 @@ class UsersController extends Controller
             $user->email= $request->email;
             $user->user= $request->user;
             $user->imagen= $request->imagen;
-            $user->passsword= $request->passsword;
+            $user->passsword= Hash::make($request->passsword);
+           // $password = bcrypt('secret');
             $user->save();
             $userId=$user->id;
             $userUser=$user->user;
