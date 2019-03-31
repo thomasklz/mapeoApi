@@ -58,6 +58,9 @@ class RedesController extends Controller
      */
     public function show($id)
     {
+        if(empty($id)){
+            return response()->json(['message'=>'No se permiten valores nulos', 'code'=>'404'], 404);
+       }
         $red= Redes::find($id);
         if($red==null){
             return response()->json(['message'=>'No se encontró la red', 'code'=>'404'], 404);
