@@ -66,7 +66,7 @@ class UsersController extends Controller
        if(empty($id)){
             return response()->json(['message'=>'No se permiten valores nulos', 'code'=>'404'], 404);
        }
-        $user=Users::find($id)->first();
+        $user=Users::find($id);
         if($user==null){
             return response()->json(['message'=>'No se encontró el usuario', 'code'=>'404'], 404);
         }else{
