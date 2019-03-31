@@ -35,10 +35,10 @@ class UsersController extends Controller
             $email=Users::where('email',$request->email)->first();
             $usuario=Users::where('user',$request->user)->first();
             if($email){
-                return response()->json(['message'=>'el correo que ingresó ya existe', 'code'=>'422'], 422);
+                return response()->json(['message'=>'correo existente', 'code'=>'422'], 422);
             }
              if($usuario){
-                return response()->json(['message'=>'el usuario que ingresó ya existe', 'code'=>'422'], 422);
+                return response()->json(['message'=>'usuario existente', 'code'=>'422'], 422);
             }
             $user= new Users();
             $user->nombre= $request->nombre;
