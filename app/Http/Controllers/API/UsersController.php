@@ -20,7 +20,7 @@ class UsersController extends Controller
     }
     public function login(Request $request)
     {
-       if((empty($request->usuario)) || (empty($request->contraseña))){
+       if((empty($request->usuario)) || (empty($request->passsword))){
                 return response()->json(['message'=>'No se permiten valores nulos', 'code'=>'422'], 422);
         }else{ 
             $usuario=Users::where('user',$request->user)->first();
