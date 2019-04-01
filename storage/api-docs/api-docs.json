@@ -1,0 +1,155 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "Cliente rest AppMapeo",
+        "description": "Client rest with Laravel",
+        "termsOfService": "",
+        "contact": {
+            "email": "piposrgt@gmail.com"
+        },
+        "version": "1.0.0"
+    },
+    "basePath": "/api/v01",
+    "paths": {
+        "/redes": {
+            "get": {
+                "tags": [
+                    "Redes"
+                ],
+                "summary": "Listado redes compartidas",
+                "operationId": "getCustomerRates",
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "404": {
+                        "description": "not found"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Redes"
+                ],
+                "summary": "Agregar red",
+                "operationId": "createRed",
+                "parameters": [
+                    {
+                        "name": "tipoRed",
+                        "in": "formData",
+                        "description": "ingresar el tipo de red",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "nombreRed",
+                        "in": "formData",
+                        "description": "ingresar nombre de la red",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "passwordRed",
+                        "in": "formData",
+                        "description": "ingresar la contrase\u00f1a de la red",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "estadoRed",
+                        "in": "formData",
+                        "description": "ingresar el estado (1 o 0) de la red",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "latitud",
+                        "in": "formData",
+                        "description": "ingresar la latitud",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "longitud",
+                        "in": "formData",
+                        "description": "ingresar la longitud",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "idUser",
+                        "in": "formData",
+                        "description": "ingresar el id de usuario",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "registo correcto"
+                    },
+                    "404": {
+                        "description": "el id de red existe"
+                    },
+                    "422": {
+                        "description": "no se permiten valores nulos"
+                    }
+                }
+            }
+        },
+        "/redes/{id}": {
+            "get": {
+                "tags": [
+                    "Redes"
+                ],
+                "summary": "obtener red",
+                "operationId": "getRed",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ingresar id de la red",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "datos obtenidos correctamente"
+                    },
+                    "404": {
+                        "description": "el id de red existe"
+                    },
+                    "422": {
+                        "description": "no se permiten valores nulos"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Redes"
+                ],
+                "summary": "eliminar red",
+                "operationId": "deleteRedes",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ingresar el id de la red",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "red eliminada correctamente"
+                    },
+                    "404": {
+                        "description": "red no encontrada"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {}
+}

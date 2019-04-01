@@ -33,8 +33,6 @@ class UsersController extends Controller
             }else{
                 return response()->json(['message'=>'usuario y/o contraseña incorrecta','code'=>'404'], 404);      
             }
-          
-            
         }
     }
 

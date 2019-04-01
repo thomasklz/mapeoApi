@@ -9,10 +9,36 @@ use App\Users;
 
 class RedesController extends Controller
 {
+   
+   /**
+     * @SWG\Swagger(
+     *   basePath="/api/v01",
+     *   @SWG\Info(
+     *     title="Cliente rest AppMapeo",
+     *     version="1.0.0",
+     *     description="Client rest with Laravel",
+     *     termsOfService="",
+     *     @SWG\Contact(
+     *             email="piposrgt@gmail.com"
+     *         )
+     *   )
+     * )
+     */
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
+     */
+    /**
+     * @SWG\Get(
+     *   path="/redes",
+     *   tags={"Redes"},
+     *   summary="Listado redes compartidas",
+     *   operationId="getCustomerRates",
+     *   @SWG\Response(response=200, description="successful operation"),
+     *   @SWG\Response(response=404, description="not found"),)
+     * )
+     *
      */
     public function index()
     {
@@ -26,9 +52,70 @@ class RedesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+     /**
+     * @SWG\Post(
+     *   path="/redes",
+     *   tags={"Redes"},
+     *   summary="Agregar red",
+     *   operationId="createRed",
+     *   @SWG\Parameter(
+     *     name="tipoRed",
+     *     in="formData",
+     *     description="ingresar el tipo de red",
+     *     required=true,
+     *     type="string"
+     *   ),
+     *   @SWG\Parameter(
+     *     name="nombreRed",
+     *     in="formData",
+     *     description="ingresar nombre de la red",
+     *     required=true,
+     *     type="string"
+     *   ),
+     *   @SWG\Parameter(
+     *     name="passwordRed",
+     *     in="formData",
+     *     description="ingresar la contraseña de la red",
+     *     required=true,
+     *     type="string"
+     *   ),
+     *   @SWG\Parameter(
+     *     name="estadoRed",
+     *     in="formData",
+     *     description="ingresar el estado (1 o 0) de la red",
+     *     required=true,
+     *     type="string"
+     *   ),
+     *   @SWG\Parameter(
+     *     name="latitud",
+     *     in="formData",
+     *     description="ingresar la latitud",
+     *     required=true,
+     *     type="string"
+     *   ),
+     *   @SWG\Parameter(
+     *     name="longitud",
+     *     in="formData",
+     *     description="ingresar la longitud",
+     *     required=true,
+     *     type="string"
+     *   ),
+     *   @SWG\Parameter(
+     *     name="idUser",
+     *     in="formData",
+     *     description="ingresar el id de usuario",
+     *     required=true,
+     *     type="string"
+     *   ),
+     *   @SWG\Response(response=201, description="registo correcto"),
+     *   @SWG\Response(response=404, description="el id de red existe"),
+     *   @SWG\Response(response=422, description="no se permiten valores nulos"),
+     * )
+     *
+     */
     public function store(Request $request)
     {
-        if((empty($request->tipoRed)) || (empty($request->nombreRed))||(empty($request->passwordRed))|| (empty($request->estadoRed))|| (empty($request->latitud))|| (empty($request->longitud))|| (empty($request->idUser))){
+        if((empty($request->tipoRed)) || (empty($request->nombreRed))||(empty($request->passwordRed))|| ($request->estadoRed==null) || (empty($request->latitud))|| (empty($request->longitud))|| (empty($request->idUser))){
                 return response()->json(['message'=>'No se permiten valores nulos', 'code'=>'422'], 422);
         }else{
             $user = Users::find($request->idUser);
@@ -56,10 +143,29 @@ class RedesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    /**
+     * @SWG\Get(
+     *   path="/redes/{id}",
+     *   tags={"Redes"},
+     *   summary="obtener red",
+     *   operationId="getRed",
+     *   @SWG\Parameter(
+     *     name="id",
+     *     in="path",
+     *     description="ingresar id de la red",
+     *     required=true,
+     *     type="integer"
+     *   ),
+     *   @SWG\Response(response=200, description="datos obtenidos correctamente"),
+     *   @SWG\Response(response=404, description="el id de red existe"),
+     *   @SWG\Response(response=422, description="no se permiten valores nulos"),
+     * )
+     *
+     */
     public function show($id)
     {
         if(empty($id)){
-            return response()->json(['message'=>'No se permiten valores nulos', 'code'=>'404'], 404);
+            return response()->json(['message'=>'No se permiten valores nulos', 'code'=>'422'], 422);
        }
         $red= Redes::find($id);
         if($red==null){
@@ -92,13 +198,7 @@ class RedesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $red= Redes::where('id',$id)->first();
-        if($red==null){
-            return response()->json(['message'=>'No se encontró la red', 'code'=>'404'], 404);
-        }
-        $red->estadoRed = $request->estadoRed;
-        $red->save();
-        return response()->json(['message'=>'Proceso realizado correctamente'], 200);
+        
     }
 
     /**
@@ -107,8 +207,32 @@ class RedesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+     /**
+     * @SWG\Delete(
+     *   path="/redes/{id}",
+     *   tags={"Redes"},
+     *   summary="eliminar red",
+     *   operationId="deleteRedes",
+     *   @SWG\Parameter(
+     *     name="id",
+     *     in="path",
+     *     description="ingresar el id de la red",
+     *     required=true,
+     *     type="integer"
+     *   ),
+     *   @SWG\Response(response=204, description="red eliminada correctamente"),
+     *   @SWG\Response(response=404, description="red no encontrada"),
+     * )
+     *
+     */
     public function destroy($id)
     {
-        //
+        $red = Redes::find($id);
+       if ($red){
+            Redes::find($id)->delete();
+            return response()->json(['message'=>'Dato eliminado', 'code'=>'200'], 200);
+       }else{
+            return response()->json(['message'=>'Red no encontrada'], 404);
+       }
     }
 }
