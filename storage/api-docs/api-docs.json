@@ -149,6 +149,274 @@
                     }
                 }
             }
+        },
+        "/redes/user/{id}": {
+            "get": {
+                "tags": [
+                    "Redes"
+                ],
+                "summary": "obtener redes del usuario",
+                "operationId": "getRedUser",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ingresar id del usuario",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "datos obtenidos correctamente"
+                    },
+                    "404": {
+                        "description": "usuario no encontrado"
+                    },
+                    "422": {
+                        "description": "no se permiten valores nulos"
+                    }
+                }
+            }
+        },
+        "/users": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Listado de usuarios",
+                "operationId": "getUsers",
+                "responses": {
+                    "200": {
+                        "description": "usuarios obtenidos correctamente"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Agregar usuario",
+                "operationId": "createUser",
+                "parameters": [
+                    {
+                        "name": "nombre",
+                        "in": "formData",
+                        "description": "ingresar el nombre",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "apellido",
+                        "in": "formData",
+                        "description": "ingresar el apellido",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "f_nacimiento",
+                        "in": "formData",
+                        "description": "ingresar fecha de nacimiento",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "email",
+                        "in": "formData",
+                        "description": "ingresar el email",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "user",
+                        "in": "formData",
+                        "description": "ingresar nombre de usuario",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "imagen",
+                        "in": "formData",
+                        "description": "ingresar nombre de la imagen",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "passsword",
+                        "in": "formData",
+                        "description": "ingresar una contrase\u00f1a",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "registo correcto"
+                    },
+                    "401": {
+                        "description": "usuario y/o correo existente"
+                    },
+                    "422": {
+                        "description": "no se permiten valores nulos"
+                    }
+                }
+            }
+        },
+        "/users/login": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Comprobrar login",
+                "operationId": "loginUsers",
+                "parameters": [
+                    {
+                        "name": "user",
+                        "in": "formData",
+                        "description": "ingresar el usuario",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "passsword",
+                        "in": "formData",
+                        "description": "ingresar la contrase\u00f1a",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "login correcto"
+                    },
+                    "404": {
+                        "description": "usuario y/o contrase\u00f1a incorrecta"
+                    },
+                    "422": {
+                        "description": "no se permiten valores nulos"
+                    }
+                }
+            }
+        },
+        "/users/{id}": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "obtener usuario",
+                "operationId": "getUser",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ingresar id del usuario",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "usuario obtenido correctamente"
+                    },
+                    "404": {
+                        "description": "usuario no encontrado"
+                    },
+                    "422": {
+                        "description": "no se permiten valores nulos"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Actualizar usuario",
+                "operationId": "updateUser",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ingresar id del usuario",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "nombre",
+                        "in": "formData",
+                        "description": "ingresar el nombre",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "apellido",
+                        "in": "formData",
+                        "description": "ingresar el apellido",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "f_nacimiento",
+                        "in": "formData",
+                        "description": "ingresar fecha de nacimiento",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "email",
+                        "in": "formData",
+                        "description": "ingresar el email",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "registro correcto"
+                    },
+                    "404": {
+                        "description": "usuario no encontrado"
+                    },
+                    "401": {
+                        "description": "correo existente"
+                    },
+                    "422": {
+                        "description": "no se permiten valores nulos"
+                    }
+                }
+            }
+        },
+        "/users/imagen/{id}": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Cambiar foto de perfil",
+                "operationId": "changePhoto",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ingresar id del usuario",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "file",
+                        "in": "formData",
+                        "description": "subir imagen",
+                        "required": true,
+                        "type": "file"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "foto cambiada correctamente"
+                    },
+                    "400": {
+                        "description": "error al subir imagen"
+                    }
+                }
+            }
         }
     },
     "definitions": {}

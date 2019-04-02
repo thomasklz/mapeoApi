@@ -20,8 +20,8 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::get('v01/user/red/{id}', 'API\RedesController@getreduser');
-Route::post('v01/user/imagen/{id}', 'API\UsersController@changeimage');
-Route::post('v01/user/login', 'API\UsersController@login');
+Route::get('v01/redes/user/{id}', 'API\RedesController@getreduser');
+Route::post('v01/users/imagen/{id}', 'API\UsersController@changeimage');
+Route::post('v01/users/login', 'API\UsersController@login');
 Route::apiResource('v01/users', 'API\UsersController');
 Route::apiResource('v01/redes', 'API\RedesController');

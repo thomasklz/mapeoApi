@@ -166,7 +166,7 @@ class RedesController extends Controller
     {
         if(empty($id)){
             return response()->json(['message'=>'No se permiten valores nulos', 'code'=>'422'], 422);
-       }
+        }
         $red= Redes::find($id);
         if($red==null){
             return response()->json(['message'=>'No se encontró la red', 'code'=>'404'], 404);
@@ -174,14 +174,36 @@ class RedesController extends Controller
             return response()->json(['red'=>$red], 200);
         }
     }
+    /**
+     * @SWG\Get(
+     *   path="/redes/user/{id}",
+     *   tags={"Redes"},
+     *   summary="obtener redes del usuario",
+     *   operationId="getRedUser",
+     *   @SWG\Parameter(
+     *     name="id",
+     *     in="path",
+     *     description="ingresar id del usuario",
+     *     required=true,
+     *     type="integer"
+     *   ),
+     *   @SWG\Response(response=200, description="datos obtenidos correctamente"),
+     *   @SWG\Response(response=404, description="usuario no encontrado"),
+     *   @SWG\Response(response=422, description="no se permiten valores nulos"),
+     * )
+     *
+     */
     public function getreduser($id){
+        if(empty($id)){
+            return response()->json(['message'=>'No se permiten valores nulos', 'code'=>'422'], 422);
+        }
         $user= Users::find($id);
          if($user==null){
             return response()->json(['message'=>'Usuario no encontrado', 'code'=>'404'], 404);
         }else{
             $redes= Redes::where('idUser', $id)->get(); 
              if($redes==null){
-                return response()->json(['message'=>'No hay redes disponibles', 'code'=>'200'], 200);
+                return response()->json(['message'=>'El usuario no tiene redes disponibles', 'code'=>'200'], 200);
              }else{
                 return response()->json(['redes'=>$redes], 200);
              }

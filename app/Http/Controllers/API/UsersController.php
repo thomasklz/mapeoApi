@@ -9,15 +9,53 @@ use App\Users;
 
 class UsersController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+    /**
+     * @SWG\Get(
+     *   path="/users",
+     *   tags={"Users"},
+     *   summary="Listado de usuarios",
+     *   operationId="getUsers",
+     *   @SWG\Response(response=200, description="usuarios obtenidos correctamente"),
+     * )
+     *
+     */
     public function index()
     {
-        //
+        $users= Users::all();
+        return response()->json(['redes'=>$users], 200);
     }
+   /**
+     * @SWG\Post(
+     *   path="/users/login",
+     *   tags={"Users"},
+     *   summary="Comprobrar login",
+     *   operationId="loginUsers",
+     *   @SWG\Parameter(
+     *     name="user",
+     *     in="formData",
+     *     description="ingresar el usuario",
+     *     required=true,
+     *     type="string"
+     *   ),
+     *   @SWG\Parameter(
+     *     name="passsword",
+     *     in="formData",
+     *     description="ingresar la contraseña",
+     *     required=true,
+     *     type="string"
+     *   ),
+     *   @SWG\Response(response=201, description="login correcto"),
+     *   @SWG\Response(response=404, description="usuario y/o contraseña incorrecta"),
+     *   @SWG\Response(response=422, description="no se permiten valores nulos"),
+     * )
+     *
+     */
     public function login(Request $request)
     {
        if((empty($request->user)) || (empty($request->passsword))){
@@ -42,6 +80,67 @@ class UsersController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+         /**
+     * @SWG\Post(
+     *   path="/users",
+     *   tags={"Users"},
+     *   summary="Agregar usuario",
+     *   operationId="createUser",
+     *   @SWG\Parameter(
+     *     name="nombre",
+     *     in="formData",
+     *     description="ingresar el nombre",
+     *     required=true,
+     *     type="string"
+     *   ),
+     *   @SWG\Parameter(
+     *     name="apellido",
+     *     in="formData",
+     *     description="ingresar el apellido",
+     *     required=true,
+     *     type="string"
+     *   ),
+     *   @SWG\Parameter(
+     *     name="f_nacimiento",
+     *     in="formData",
+     *     description="ingresar fecha de nacimiento",
+     *     required=true,
+     *     type="string"
+     *   ),
+     *   @SWG\Parameter(
+     *     name="email",
+     *     in="formData",
+     *     description="ingresar el email",
+     *     required=true,
+     *     type="string"
+     *   ),
+     *   @SWG\Parameter(
+     *     name="user",
+     *     in="formData",
+     *     description="ingresar nombre de usuario",
+     *     required=true,
+     *     type="string"
+     *   ),
+     *   @SWG\Parameter(
+     *     name="imagen",
+     *     in="formData",
+     *     description="ingresar nombre de la imagen",
+     *     required=true,
+     *     type="string"
+     *   ),
+     *   @SWG\Parameter(
+     *     name="passsword",
+     *     in="formData",
+     *     description="ingresar una contraseña",
+     *     required=true,
+     *     type="string"
+     *   ),
+     *   @SWG\Response(response=200, description="registo correcto"),
+     *   @SWG\Response(response=401, description="usuario y/o correo existente"),
+     *   @SWG\Response(response=422, description="no se permiten valores nulos"),
+     * )
+     *
+     */
     public function store(Request $request)
     {
        if((empty($request->nombre)) || (empty($request->apellido))||(empty($request->f_nacimiento))
@@ -52,10 +151,10 @@ class UsersController extends Controller
             $email=Users::where('email',$request->email)->first();
             $usuario=Users::where('user',$request->user)->first();
             if($email){
-                return response()->json(['message'=>'correo existente', 'code'=>'422'], 422);
+                return response()->json(['message'=>'correo existente', 'code'=>'401'], 401);
             }
              if($usuario){
-                return response()->json(['message'=>'usuario existente', 'code'=>'422'], 422);
+                return response()->json(['message'=>'usuario existente', 'code'=>'401'], 401);
             }
             $user= new Users();
             $user->nombre= $request->nombre;
@@ -78,10 +177,29 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    /**
+     * @SWG\Get(
+     *   path="/users/{id}",
+     *   tags={"Users"},
+     *   summary="obtener usuario",
+     *   operationId="getUser",
+     *   @SWG\Parameter(
+     *     name="id",
+     *     in="path",
+     *     description="ingresar id del usuario",
+     *     required=true,
+     *     type="integer"
+     *   ),
+     *   @SWG\Response(response=200, description="usuario obtenido correctamente"),
+     *   @SWG\Response(response=404, description="usuario no encontrado"),
+     *   @SWG\Response(response=422, description="no se permiten valores nulos"),
+     * )
+     *
+     */
     public function show($id)
     {
        if(empty($id)){
-            return response()->json(['message'=>'No se permiten valores nulos', 'code'=>'404'], 404);
+            return response()->json(['message'=>'No se permiten valores nulos', 'code'=>'422'], 422);
        }
         $user=Users::find($id);
         if($user==null){
@@ -98,6 +216,54 @@ class UsersController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
+     */
+     /**
+     * @SWG\Put(
+     *   path="/users/{id}",
+     *   tags={"Users"},
+     *   summary="Actualizar usuario",
+     *   operationId="updateUser",
+     *   @SWG\Parameter(
+     *     name="id",
+     *     in="path",
+     *     description="ingresar id del usuario",
+     *     required=true,
+     *     type="integer"
+     *   ),
+     *   @SWG\Parameter(
+     *     name="nombre",
+     *     in="formData",
+     *     description="ingresar el nombre",
+     *     required=true,
+     *     type="string"
+     *   ),
+     *   @SWG\Parameter(
+     *     name="apellido",
+     *     in="formData",
+     *     description="ingresar el apellido",
+     *     required=true,
+     *     type="string"
+     *   ),
+     *   @SWG\Parameter(
+     *     name="f_nacimiento",
+     *     in="formData",
+     *     description="ingresar fecha de nacimiento",
+     *     required=true,
+     *     type="string"
+     *   ),
+     *   @SWG\Parameter(
+     *     name="email",
+     *     in="formData",
+     *     description="ingresar el email",
+     *     required=true,
+     *     type="string"
+     *   ),
+     *   @SWG\Response(response=200, description="registro correcto"),
+     *   @SWG\Response(response=404, description="usuario no encontrado"),
+     *   @SWG\Response(response=401, description="correo existente"),
+     *   @SWG\Response(response=422, description="no se permiten valores nulos"),
+     * )
+     *
      */
     public function update(Request $request, $id)
     {
@@ -129,7 +295,31 @@ class UsersController extends Controller
             }
         }
     }
-    
+    /**
+     * @SWG\Post(
+     *   path="/users/imagen/{id}",
+     *   tags={"Users"},
+     *   summary="Cambiar foto de perfil",
+     *   operationId="changePhoto",
+     *   @SWG\Parameter(
+     *     name="id",
+     *     in="path",
+     *     description="ingresar id del usuario",
+     *     required=true,
+     *     type="integer"
+     *   ),
+     *   @SWG\Parameter(
+     *     name="file",
+     *     in="formData",
+     *     description="subir imagen",
+     *     required=true,
+     *     type="file"
+     *   ),
+     *   @SWG\Response(response=200, description="foto cambiada correctamente"),
+     *   @SWG\Response(response=400, description="error al subir imagen"),
+     * )
+     *
+     */
     public function changeimage(Request $request, $id){
         $target_dir = public_path()."/imagenes/";
         $target_file = $target_dir . basename($_FILES["file"]["name"]);
