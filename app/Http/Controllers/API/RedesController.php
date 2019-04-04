@@ -74,15 +74,15 @@ $lng = (double) $request->lng;
 //                 LIMIT 20;
 //             ');
         
-   $products = Redes::with(['owner' => function($query) use ($lat, $lng, $circle_radius) {
-      $query->selectRaw('( 6371 * acos( cos( radians(?) ) *
+   $products = DB::table('redes')
+          ->select('redes.*', DB::raw("( 6371 * acos( cos( radians($lat) ) *
                                cos( radians( latitud ) )
-                               * cos( radians( longitud ) - radians(?)
-                               ) + sin( radians(?) ) *
+                               * cos( radians( longitud ) - radians($lng)
+                               ) + sin( radians($lat) ) *
                                sin( radians( latitud ) ) )
-                             ) AS distance', [$lat, $lng])
-      ->havingRaw("distance < ?", [$circle_radius]);
-    }])->get();     
+                             ) AS distance"))
+          ->having("distance", "<", $circle_radius)
+          ->get();    
         
 //         $lat = $request->lat;
 // $lng = $request->lng;
