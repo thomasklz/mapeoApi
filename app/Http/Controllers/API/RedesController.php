@@ -66,7 +66,7 @@ $lng = $request->lng;
                     cos(radians(longitud) - radians(' . $lng . ')) +
                     sin(radians(' . $lat . ')) * sin(radians(latitud))))
                     AS distance
-                    FROM redes) AS redes
+                    FROM redes) AS distances
                 WHERE distance < ' . $max_distance . '
                 ORDER BY distance
                 OFFSET 0
