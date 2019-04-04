@@ -58,8 +58,8 @@ class RedesController extends Controller
         
         $circle_radius = 300;
 $max_distance = 200;
-$lat = $request->lat;
-$lng = $request->lng;
+$lat =(double) $request->lat;
+$lng = (double) $request->lng;
 
  $candidates = DB::select(
                'SELECT * FROM
