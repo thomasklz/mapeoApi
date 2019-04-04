@@ -46,21 +46,21 @@ class RedesController extends Controller
 //$lng = $request->get('lng');
 
 
-// $redes = Redes::where('location', 'near', [
-//     '$geometry' => [
-//         'type' => 'Point',
-//         'coordinates' => [
-//             $lng,
-//             $lat,
-//         ],
-//     ],
-//     '$maxDistance' => 300,
-// ]);
+$redes = Redes::where('location', 'near', [
+     '$geometry' => [
+         'type' => 'Point',
+         'coordinates' => [
+             $lng,
+             $lat,
+         ],
+     ],
+     '$maxDistance' => 100,
+ ]);
 
 
-//         return response()->json(['redes'=>$redes], 200);
-      $redes= Redes::where('estadoRed','false')->orderBy('id', 'DESC')->with('user:id,user')->get();
        return response()->json(['redes'=>$redes], 200);
+      //$redes= Redes::where('estadoRed','false')->orderBy('id', 'DESC')->with('user:id,user')->get();
+     //  return response()->json(['redes'=>$redes], 200);
     }
 
     /**
