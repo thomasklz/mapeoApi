@@ -42,20 +42,37 @@ class RedesController extends Controller
      */
     public function index(Request $request)
     {
-             $lat = $request->lat;
-$lng = $request->lng;
+             
+        $cd = Redes::all();
+        $dist = '(6371 * acos(cos(radians('.$request->lng .')) 
+                     * cos(radians('. $cd->latitud .')) 
+                     * cos(radians('. $cd->longitud .') 
+                     - radians('. $request->lng .')) 
+                     + sin(radians('.$request->lat .')) 
+                     * sin(radians('. $cd->latitud .'))))';
+     $redes= $query 
+        ->select() //pick the columns you want here.
+        ->selectRaw("{$dist} AS distance")
+        ->whereRaw("{$dist} < 25");
+        
+        
+        
+        
+        
+//         $lat = $request->lat;
+// $lng = $request->lng;
 
 
-$redes = Redes::where('location', 'near', [
-     '$geometry' => [
-         'type' => 'Point',
-         'coordinates' => [
-             $lng,
-             $lat,
-         ],
-     ],
-     '$maxDistance' => 100,
- ]);
+// $redes = Redes::where('location', 'near', [
+//      '$geometry' => [
+//          'type' => 'Point',
+//          'coordinates' => [
+//              $lng,
+//              $lat,
+//          ],
+//      ],
+//      '$maxDistance' => 100,
+//  ]);
 
 
        return response()->json(['redes'=>$redes], 200);
