@@ -43,19 +43,35 @@ class RedesController extends Controller
     public function index(Request $request)
     {
              
-        $cd = Redes::all();
-        $dist = '(6371 * acos(cos(radians('.$request->lng .')) 
-                     * cos(radians('. $cd->latitud .')) 
-                     * cos(radians('. $cd->longitud .') 
-                     - radians('. $request->lng .')) 
-                     + sin(radians('.$request->lat .')) 
-                     * sin(radians('. $cd->latitud .'))))';
-     $redes= $query 
-        ->select() //pick the columns you want here.
-        ->selectRaw("{$dist} AS distance")
-        ->whereRaw("{$dist} < 25");
+    //     $cd = Redes::all();
+    //     $dist = '(6371 * acos(cos(radians('.$request->lng .')) 
+    //                  * cos(radians('. $cd->latitud .')) 
+    //                  * cos(radians('. $cd->longitud .') 
+    //                  - radians('. $request->lng .')) 
+    //                  + sin(radians('.$request->lat .')) 
+    //                  * sin(radians('. $cd->latitud .'))))';
+    //  $redes= $query 
+    //     ->select() //pick the columns you want here.
+    //     ->selectRaw("{$dist} AS distance")
+    //     ->whereRaw("{$dist} < 25");
         
-        
+        $circle_radius = 300;
+$max_distance = 200;
+$lat = $request->lat;
+$lng = $request->lng;
+
+ $candidates = DB::select(
+               'SELECT * FROM
+                    (SELECT id, name, address, phone, latitude, longitude, (' . $circle_radius . ' * acos(cos(radians(' . $lat . ')) * cos(radians(latitude)) *
+                    cos(radians(longitude) - radians(' . $lng . ')) +
+                    sin(radians(' . $lat . ')) * sin(radians(latitude))))
+                    AS distance
+                    FROM candidates) AS redes
+                WHERE distance < ' . $max_distance . '
+                ORDER BY distance
+                OFFSET 0
+                LIMIT 20;
+            ');
         
         
         
@@ -75,7 +91,7 @@ class RedesController extends Controller
 //  ]);
 
 
-       return response()->json(['redes'=>$redes], 200);
+       return response()->json(['redes'=>$candidates], 200);
       //$redes= Redes::where('estadoRed','false')->orderBy('id', 'DESC')->with('user:id,user')->get();
      //  return response()->json(['redes'=>$redes], 200);
     }
