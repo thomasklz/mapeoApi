@@ -42,29 +42,25 @@ class RedesController extends Controller
      */
     public function index(Request $request)
     {
-       //SELECT * FROM tweets WHERE location <@ circle '((-34.603722, -58.381592), 2000)'
-       //$results = DB::select(DB::raw('SELECT id, ( 3959 * acos( cos( radians(' . $lat . ') ) * cos( radians( lat ) ) * cos( radians( lng ) - radians(' . $lng . ') ) + sin( radians(' . $lat .') ) * sin( radians(lat) ) ) ) AS distance FROM articles HAVING distance < ' . $distance . ' ORDER BY distance') );
-        $lat = $request->get('lat');
-$lng = $request->get('lng');
-//$distance = 1;
-
-//$articles = Redes::getByDistance($lat, $lng, $distance);
-
-$redes = Redes::where('location', 'near', [
-    '$geometry' => [
-        'type' => 'Point',
-        'coordinates' => [
-            $lat,
-            $lng,
-        ],
-    ],
-    '$maxDistance' => 300,
-]);
+       //        $lat = $request->get('lat');
+//$lng = $request->get('lng');
 
 
-        return response()->json(['redes'=>$redes], 200);
-      // $redes= Redes::where('estadoRed','false')->orderBy('id', 'DESC')->with('user:id,user')->get();
-       // return response()->json(['redes'=>$redes], 200);
+// $redes = Redes::where('location', 'near', [
+//     '$geometry' => [
+//         'type' => 'Point',
+//         'coordinates' => [
+//             $lng,
+//             $lat,
+//         ],
+//     ],
+//     '$maxDistance' => 300,
+// ]);
+
+
+//         return response()->json(['redes'=>$redes], 200);
+      $redes= Redes::where('estadoRed','false')->orderBy('id', 'DESC')->with('user:id,user')->get();
+       return response()->json(['redes'=>$redes], 200);
     }
 
     /**
