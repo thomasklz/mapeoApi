@@ -62,7 +62,7 @@ $lng = $request->lng;
 
  $candidates = DB::select(
                'SELECT * FROM
-                    (SELECT id, tipoRed, nombreRed, passwordRed, latitud, longitud, (' . $circle_radius . ' * acos(cos(radians(' . $lat . ')) * cos(radians(latitud)) *
+                    (SELECT id, nombreRed, passwordRed, latitud, longitud, (' . $circle_radius . ' * acos(cos(radians(' . $lat . ')) * cos(radians(latitud)) *
                     cos(radians(longitud) - radians(' . $lng . ')) +
                     sin(radians(' . $lat . ')) * sin(radians(latitud))))
                     AS distance
