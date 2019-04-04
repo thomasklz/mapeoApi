@@ -42,8 +42,8 @@ class RedesController extends Controller
      */
     public function index(Request $request)
     {
-       //        $lat = $request->get('lat');
-//$lng = $request->get('lng');
+             $lat = $request->lat;
+$lng = $request->lng;
 
 
 $redes = Redes::where('location', 'near', [
