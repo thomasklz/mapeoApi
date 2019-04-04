@@ -75,10 +75,10 @@ $lng = (double) $request->lng;
 //             ');
         
    $products = DB::table('redes')
-          ->select('redes.*', DB::raw("( 6371 * acos( cos( radians($lat) ) *
+          ->select('redes.*', DB::raw("( 6371 * acos( cos( radians(-0.8485939) ) *
                                cos( radians( latitud ) )
-                               * cos( radians( longitud ) - radians($lng)
-                               ) + sin( radians($lat) ) *
+                               * cos( radians( longitud ) - radians(-80.1611082)
+                               ) + sin( radians(-0.8485939) ) *
                                sin( radians( latitud ) ) )
                              ) AS distance"))
           ->having("distance", "<", $circle_radius)
