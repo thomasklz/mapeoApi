@@ -6,7 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Redes;
 use App\Users;
-use Illuminate\Support\Facades\DB;
+
+use DB;
 class RedesController extends Controller
 {
    
