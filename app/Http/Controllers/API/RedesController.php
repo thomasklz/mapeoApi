@@ -61,7 +61,7 @@ $max_distance = 200;
 $lat =(double) $request->lat;
 $lng = (double) $request->lng;
 
- $candidates = DB::select(
+ $candidates = DB::select( (string)
                'SELECT * FROM
                     (SELECT id, latitud, longitud, (' . $circle_radius . ' * acos(cos(radians(' . -0.8485939 . ')) * cos(radians(latitud)) *
                     cos(radians(longitud) - radians(' . -80.1611082 . ')) +
