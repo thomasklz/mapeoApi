@@ -62,9 +62,9 @@ $lng = $request->lng;
 
  $candidates = DB::select(
                'SELECT * FROM
-                    (SELECT id, name, address, phone, latitude, longitude, (' . $circle_radius . ' * acos(cos(radians(' . $lat . ')) * cos(radians(latitude)) *
-                    cos(radians(longitude) - radians(' . $lng . ')) +
-                    sin(radians(' . $lat . ')) * sin(radians(latitude))))
+                    (SELECT id, tipoRed, nombreRed, passwordRed, latitud, longitud, (' . $circle_radius . ' * acos(cos(radians(' . $lat . ')) * cos(radians(latitud)) *
+                    cos(radians(longitud) - radians(' . $lng . ')) +
+                    sin(radians(' . $lat . ')) * sin(radians(latitud))))
                     AS distance
                     FROM redes) AS redes
                 WHERE distance < ' . $max_distance . '
