@@ -61,28 +61,28 @@ $max_distance = 200;
 $lat =(double) $request->lat;
 $lng = (double) $request->lng;
 
-//  $candidates = DB::select( 
-//                'SELECT * FROM 
-//                     (SELECT id, latitud, longitud, (' . $circle_radius . ' * acos(cos(radians(' . -0.8485939 . ')) * cos(radians(latitud)) *
-//                     cos(radians(longitud) - radians(' . -80.1611082 . ')) +
-//                     sin(radians(' . -0.8485939 . ')) * sin(radians(latitud))))
-//                     AS distance
-//                     FROM redes) AS distances
-//                 WHERE distance < ' . $max_distance . '
-//                 ORDER BY distance
-//                 OFFSET 0
-//                 LIMIT 20;
-//             ');
+ $candidates = DB::select( 
+               'SELECT * FROM 
+                    (SELECT id, latitud, longitud, (' . $circle_radius . ' * acos(cos(radians(' . -0.8485939 . ')) * cos(radians(latitud)) *
+                    cos(radians(longitud) - radians(' . -80.1611082 . ')) +
+                    sin(radians(' . -0.8485939 . ')) * sin(radians(latitud))))
+                    AS distance
+                    FROM redes) AS distances
+                WHERE distance < ' . $max_distance . '
+                ORDER BY distance
+                OFFSET 0
+                LIMIT 20;
+            ');
         
-   $products = DB::table('redes')
-          ->select('redes.*', DB::raw("( 6371 * acos( cos( radians( (double) -0.8485939) ) *
-                               cos( radians( latitud ) )
-                               * cos( radians( longitud ) - radians( (double)-80.1611082)
-                               ) + sin( radians((double) -0.8485939) ) *
-                               sin( radians( latitud ) ) )
-                             ) AS distance"))
-          ->having("distance", "<", $circle_radius)
-          ->get();    
+//    $products = DB::table('redes')
+//           ->select('redes.*', DB::raw("( 6371 * acos( cos( radians( (double) -0.8485939) ) *
+//                                cos( radians( latitud ) )
+//                                * cos( radians( longitud ) - radians( (double)-80.1611082)
+//                                ) + sin( radians((double) -0.8485939) ) *
+//                                sin( radians( latitud ) ) )
+//                              ) AS distance"))
+//           ->having("distance", "<", $circle_radius)
+//           ->get();    
         
 //         $lat = $request->lat;
 // $lng = $request->lng;
@@ -100,7 +100,7 @@ $lng = (double) $request->lng;
 //  ]);
 
 
-       return response()->json(['redes'=>$products], 200);
+       return response()->json(['redes'=>$candidates], 200);
       //$redes= Redes::where('estadoRed','false')->orderBy('id', 'DESC')->with('user:id,user')->get();
      //  return response()->json(['redes'=>$redes], 200);
     }
