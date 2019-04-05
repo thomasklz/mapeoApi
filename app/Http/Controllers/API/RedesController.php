@@ -63,7 +63,7 @@ $lng = (double) $request->lng;
 
  $candidates = DB::select( 
                'SELECT * FROM 
-                    (SELECT id, nombreRed, latitud, longitud, (' . $circle_radius . ' * acos(cos(radians(cast('.-0.8485939.' as double precision))) * cos(radians(cast(latitud as double precision))) *
+                    (SELECT id, nombreRed as nombreRed, latitud, longitud, (' . $circle_radius . ' * acos(cos(radians(cast('.-0.8485939.' as double precision))) * cos(radians(cast(latitud as double precision))) *
                     cos(radians(cast(longitud as double precision)) - radians(cast(' . -80.1611082 . 'as double precision))) +
                     sin(radians(cast(' . -0.8485939 . ' as double precision))) * sin(radians(cast(latitud as double precision)))))
                     AS distance
