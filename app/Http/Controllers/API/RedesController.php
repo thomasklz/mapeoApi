@@ -147,7 +147,7 @@ class RedesController extends Controller
         $red->tipoRed= $request->tipoRed;
         $red->nombreRed= $request->nombreRed;
         $red->passwordRed= $request->passwordRed;
-        $red->estadoRed= $request->estadoRed;
+        $red->estadored= $request->estadoRed;
         $red->latitud= $request->latitud;
         $red->longitud= $request->longitud;
         $red->idUser= $request->idUser;
@@ -243,7 +243,7 @@ class RedesController extends Controller
         if($red==null){
             return response()->json(['message'=>'No se encontró la red', 'code'=>'404'], 404);
         }
-        $red->estadoRed = $request->estadoRed;
+        $red->estadored = $request->estadoRed;
         $red->save();
         return response()->json(['message'=>'Proceso realizado correctamente'], 200);
     }

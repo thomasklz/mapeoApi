@@ -18,7 +18,7 @@ class CrearTablaRedes extends Migration
             $table->string('tipoRed');
             $table->string('nombreRed');
             $table->string('passwordRed');
-            $table->boolean('estadoRed');
+            $table->boolean('estadored');
             $table->string('latitud');
             $table->string('longitud');
             $table->unsignedInteger('idUser');
