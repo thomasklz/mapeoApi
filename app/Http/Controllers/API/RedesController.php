@@ -76,10 +76,10 @@ $lng = $request->lng;
         
    $redes = DB::table('redes')
           ->select('redes.*', DB::raw('( 6371 * acos( cos( radians( cast('.-0.8266462.' as double precision)) ) *
-                               cos( radians( latitud ) )
-                               * cos( radians( longitud ) - radians( cast(' . -80.1820496 . 'as double precision))
+                               cos( radians(cast(latitud as double precision) ) )
+                               * cos( radians(cast(longitud as double precision)) - radians( cast(' . -80.1820496 . 'as double precision))
                                ) + sin( radians(cast('.-0.8266462.' as double precision)) ) *
-                               sin( radians( latitud ) ) )
+                               sin( radians(cast(latitud as double precision)) ) )
                              ) AS distance'))
           ->having('distance', '<', $circle_radius)
           ->get();    
