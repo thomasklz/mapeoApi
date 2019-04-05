@@ -11,13 +11,29 @@
     },
     "basePath": "/api/v01",
     "paths": {
-        "/redes": {
-            "get": {
+        "/redes/publicas": {
+            "post": {
                 "tags": [
                     "Redes"
                 ],
                 "summary": "Listado redes compartidas",
                 "operationId": "getCustomerRates",
+                "parameters": [
+                    {
+                        "name": "latitud",
+                        "in": "formData",
+                        "description": "ingresar la latitud",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "longitud",
+                        "in": "formData",
+                        "description": "ingresar la longitud",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "successful operation"
@@ -26,7 +42,9 @@
                         "description": "not found"
                     }
                 }
-            },
+            }
+        },
+        "/redes": {
             "post": {
                 "tags": [
                     "Redes"

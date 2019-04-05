@@ -21,6 +21,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 Route::get('v01/redes/user/{id}', 'API\RedesController@getreduser');
+Route::post('v01/redes/publicas', 'API\RedesController@redespublicas');
 Route::post('v01/users/imagen/{id}', 'API\UsersController@changeimage');
 Route::post('v01/users/login', 'API\UsersController@login');
 Route::apiResource('v01/users', 'API\UsersController');

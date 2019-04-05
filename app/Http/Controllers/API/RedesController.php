@@ -31,27 +31,41 @@ class RedesController extends Controller
      * @return \Illuminate\Http\Response
      */
     /**
-     * @SWG\Get(
-     *   path="/redes",
+     * @SWG\Post(
+     *   path="/redes/publicas",
      *   tags={"Redes"},
      *   summary="Listado redes compartidas",
      *   operationId="getCustomerRates",
+     *   @SWG\Parameter(
+     *     name="latitud",
+     *     in="formData",
+     *     description="ingresar la latitud",
+     *     required=true,
+     *     type="string"
+     *   ),
+     *   @SWG\Parameter(
+     *     name="longitud",
+     *     in="formData",
+     *     description="ingresar la longitud",
+     *     required=true,
+     *     type="string"
+     *   ),
      *   @SWG\Response(response=200, description="successful operation"),
      *   @SWG\Response(response=404, description="not found"),)
      * )
      *
      */
-    public function index(Request $request)
+    public function redespublicas(Request $request)
     {
         $circle_radius = 6371;
         $max_distance = 3;
-        $lat = $request->lat;
-        $lng = $request->lng;
+        $lat = $request->latitud;
+        $lng = $request->longitud;
         $redes = DB::select( 
                'SELECT * FROM 
-                    (SELECT *, (' . $circle_radius . ' * acos(cos(radians(cast('.-0.8266462.' as double precision))) * cos(radians(cast(latitud as double precision))) *
-                    cos(radians(cast(longitud as double precision)) - radians(cast(' . -80.1820496 . 'as double precision))) +
-                    sin(radians(cast(' . -0.8266462 . ' as double precision))) * sin(radians(cast(latitud as double precision)))))
+                    (SELECT *, (' . $circle_radius . ' * acos(cos(radians(cast('.$lat.' as double precision))) * cos(radians(cast(latitud as double precision))) *
+                    cos(radians(cast(longitud as double precision)) - radians(cast(' . $lng . 'as double precision))) +
+                    sin(radians(cast(' .$lat . ' as double precision))) * sin(radians(cast(latitud as double precision)))))
                     AS distance
                     FROM redes) AS distances
                 WHERE distance < ' . $max_distance . ' and  estadoRed= false
