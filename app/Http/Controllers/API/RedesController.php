@@ -43,25 +43,22 @@ class RedesController extends Controller
      */
     public function index(Request $request)
     {
- 
         $circle_radius = 6371;
         $max_distance = 3;
         $lat = $request->lat;
         $lng = $request->lng;
-
-         $redes = DB::select( 
+        $redes = DB::select( 
                'SELECT * FROM 
                     (SELECT *, (' . $circle_radius . ' * acos(cos(radians(cast('.-0.8266462.' as double precision))) * cos(radians(cast(latitud as double precision))) *
                     cos(radians(cast(longitud as double precision)) - radians(cast(' . -80.1820496 . 'as double precision))) +
                     sin(radians(cast(' . -0.8266462 . ' as double precision))) * sin(radians(cast(latitud as double precision)))))
                     AS distance
                     FROM redes) AS distances
-                WHERE distance < ' . $max_distance . ' and  UCASE(estadoRed) = false
+                WHERE distance < ' . $max_distance . ' and  estadoRed= false
                 ORDER BY distance
                 OFFSET 0
                 LIMIT 20;
             ');
-
 
         return response()->json(['redes'=>$redes], 200);
       //$redes= Redes::where('estadoRed','false')->orderBy('id', 'DESC')->with('user:id,user')->get();
