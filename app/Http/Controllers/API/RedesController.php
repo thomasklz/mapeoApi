@@ -56,7 +56,7 @@ class RedesController extends Controller
                     sin(radians(cast(' . -0.8266462 . ' as double precision))) * sin(radians(cast(latitud as double precision)))))
                     AS distance
                     FROM redes) AS distances
-                WHERE distance < ' . $max_distance . ' and  estadoRed = false
+                WHERE distance < ' . $max_distance . ' and  UCASE(estadoRed) = false
                 ORDER BY distance
                 OFFSET 0
                 LIMIT 20;
