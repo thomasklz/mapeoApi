@@ -63,9 +63,9 @@ $lng = (double) $request->lng;
 
  $candidates = DB::select( 
                'SELECT * FROM 
-                    (SELECT id, latitud, longitud, (' . $circle_radius . ' * acos(cos(degrees('. -0.8485939 .')) * cos(degrees (latitud)) *
-                    cos(degrees (longitud) - degrees(' . -80.1611082 . ')) +
-                    sin(degrees (' . -0.8485939 . ')) * sin(degrees (latitud))))
+                    (SELECT id, latitud, longitud, (' . $circle_radius . ' * acos(cos(radians(cast('.-0.8485939.' as double))) * cos(radians(latitud)) *
+                    cos(radians(longitud) - radians(cast(' . -80.1611082 . 'as double))) +
+                    sin(radians(cast(' . -0.8485939 . ' as double))) * sin(radians(latitud))))
                     AS distance
                     FROM redes) AS distances
                 WHERE distance < ' . $max_distance . '
