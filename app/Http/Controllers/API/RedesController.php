@@ -56,7 +56,7 @@ class RedesController extends Controller
     //     ->selectRaw("{$dist} AS distance")
     //     ->whereRaw("{$dist} < 25");
         
-        $circle_radius = 300;
+        $circle_radius = 6371;
 $max_distance = 3;
 $lat = $request->lat;
 $lng = $request->lng;
