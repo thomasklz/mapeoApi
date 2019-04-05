@@ -57,6 +57,9 @@ class RedesController extends Controller
      */
     public function redespublicas(Request $request)
     {
+        if((empty($request->latitud)) || (empty($request->longitud))){
+            return response()->json(['message'=>'No se permiten valores nulos', 'code'=>'422'], 422);
+        }
         $circle_radius = 6371;
         $max_distance = 3;
         $lat = $request->latitud;
