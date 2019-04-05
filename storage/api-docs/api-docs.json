@@ -143,6 +143,40 @@
                     }
                 }
             },
+            "put": {
+                "tags": [
+                    "Redes"
+                ],
+                "summary": "actualizar redes compartidas",
+                "operationId": "sharedRed",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ingresar id de red",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "estadoRed",
+                        "in": "formData",
+                        "description": "ingresar el estado (1 o 0) de la red",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "datos obtenidos correctamente"
+                    },
+                    "404": {
+                        "description": "usuario no encontrado"
+                    },
+                    "422": {
+                        "description": "no se permiten valores nulos"
+                    }
+                }
+            },
             "delete": {
                 "tags": [
                     "Redes"

@@ -254,8 +254,37 @@ class RedesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    /**
+     * @SWG\Put(
+     *   path="/redes/{id}",
+     *   tags={"Redes"},
+     *   summary="actualizar redes compartidas",
+     *   operationId="sharedRed",
+     *   @SWG\Parameter(
+     *     name="id",
+     *     in="path",
+     *     description="ingresar id de red",
+     *     required=true,
+     *     type="integer"
+     *   ),
+     *   @SWG\Parameter(
+     *     name="estadoRed",
+     *     in="formData",
+     *     description="ingresar el estado (1 o 0) de la red",
+     *     required=true,
+     *     type="string"
+     *   ),
+     *   @SWG\Response(response=200, description="datos obtenidos correctamente"),
+     *   @SWG\Response(response=404, description="usuario no encontrado"),
+     *   @SWG\Response(response=422, description="no se permiten valores nulos"),
+     * )
+     *
+     */
     public function update(Request $request, $id)
     {
+       if (empty($id) || ($request->estadoRed==null)){
+            return response()->json(['message'=>'No se permiten valores nulos', 'code'=>'422'], 422);
+       }
         $red= Redes::where('id',$id)->first();
         if($red==null){
             return response()->json(['message'=>'No se encontró la red', 'code'=>'404'], 404);
