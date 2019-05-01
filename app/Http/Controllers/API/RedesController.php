@@ -243,7 +243,6 @@ class RedesController extends Controller
              }else{
                 return response()->json(['redes'=>$redes], 200);
              }
-            
         }
     }
     /*
