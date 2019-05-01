@@ -281,14 +281,14 @@ class RedesController extends Controller
      */
     public function update(Request $request, $id)
     {
-       if (empty($id) || ($request->estadoRed==null)){
+       if (empty($id) || ($request->estadored==null)){
             return response()->json(['message'=>'No se permiten valores nulos', 'code'=>'422'], 422);
        }
         $red= Redes::where('id',$id)->first();
         if($red==null){
             return response()->json(['message'=>'No se encontró la red', 'code'=>'404'], 404);
         }
-        $red->estadored = $request->estadoRed;
+        $red->estadored = $request->estadored;
         $red->save();
         return response()->json(['message'=>'Proceso realizado correctamente'], 200);
     }
