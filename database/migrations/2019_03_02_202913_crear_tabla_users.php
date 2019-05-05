@@ -22,7 +22,7 @@ class CrearTablaUsers extends Migration
             $table->string('user')->unique();
             $table->string('imagen',150);
             $table->string('passsword');
-            $table->integer('id_faceboook')->nullable();
+            $table->string('id_facebook')->nullable();
         });
     }
 

@@ -143,15 +143,12 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-       if($request->id_facebook){
-            $usuarioFacebook=Users::where('id_facebook',$request->id_facebook)
+ 
+        $usuarioFacebook=Users::where('id_facebook',$request->id_facebook)
                             ->where('email',$request->email)
                             ->first();
-            if($usuarioFacebook){
-                    return response()->json(['message'=>'Login correcto', 'userId'=>$usuarioFacebook->id, 'user'=>$usuarioFacebook->user], 200);      
-            }else{
-                return response()->json(['message'=>'Usuario y/o contraseña incorrecta','code'=>'404'], 404);      
-            }
+        if($usuarioFacebook){
+            return response()->json(['message'=>'Login correcto', 'userId'=>$usuarioFacebook->id, 'user'=>$usuarioFacebook->user], 200);      
         }
        
         if((empty($request->nombre)) || (empty($request->apellido))||(empty($request->f_nacimiento))
