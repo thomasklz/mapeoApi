@@ -58,17 +58,6 @@ class UsersController extends Controller
      */
     public function login(Request $request)
     {
-        if($request->id_facebook){
-            $usuarioFacebook=Users::where('id_facebook',$request->id_facebook)
-                            ->where('email',$request->email)
-                            ->first();
-            if($usuarioFacebook){
-                    return response()->json(['message'=>'Login correcto', 'userId'=>$usuarioFacebook->id, 'user'=>$usuarioFacebook->user], 200);      
-            }else{
-                return response()->json(['message'=>'Usuario y/o contraseña incorrecta','code'=>'404'], 404);      
-            }
-        }
-       
         if((empty($request->user)) || (empty($request->passsword))){
                 return response()->json(['message'=>'No se permiten valores nulos', 'code'=>'422'], 422);
         }else{ 
@@ -154,7 +143,18 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-       if((empty($request->nombre)) || (empty($request->apellido))||(empty($request->f_nacimiento))
+       if($request->id_facebook){
+            $usuarioFacebook=Users::where('id_facebook',$request->id_facebook)
+                            ->where('email',$request->email)
+                            ->first();
+            if($usuarioFacebook){
+                    return response()->json(['message'=>'Login correcto', 'userId'=>$usuarioFacebook->id, 'user'=>$usuarioFacebook->user], 200);      
+            }else{
+                return response()->json(['message'=>'Usuario y/o contraseña incorrecta','code'=>'404'], 404);      
+            }
+        }
+       
+        if((empty($request->nombre)) || (empty($request->apellido))||(empty($request->f_nacimiento))
        || (empty($request->email))|| (empty($request->user))|| (empty($request->imagen))
        || (empty($request->passsword))){
                 return response()->json(['message'=>'No se permiten valores nulos', 'code'=>'422'], 422);
@@ -175,6 +175,7 @@ class UsersController extends Controller
             $user->user= $request->user;
             $user->imagen= $request->imagen;
             $user->passsword= bcrypt($request->passsword);
+            $user->id_facebook=$request->id_facebook;
             $user->save();
             $userId=$user->id;
             $userUser=$user->user;
