@@ -58,18 +58,29 @@ class UsersController extends Controller
      */
     public function login(Request $request)
     {
-       if((empty($request->user)) || (empty($request->passsword))){
+        if($request->id_facebook){
+            $usuarioFacebook=Users::where('id_facebook',$request->id_facebook)
+                            ->where('email',$request->email)
+                            ->first();
+            if($usuarioFacebook){
+                    return response()->json(['message'=>'Login correcto', 'userId'=>$usuarioFacebook->id, 'user'=>$usuarioFacebook->user], 200);      
+            }else{
+                return response()->json(['message'=>'Usuario y/o contraseña incorrecta','code'=>'404'], 404);      
+            }
+        }
+       
+        if((empty($request->user)) || (empty($request->passsword))){
                 return response()->json(['message'=>'No se permiten valores nulos', 'code'=>'422'], 422);
         }else{ 
             $usuario=Users::where('user',$request->user)->first();
             if($usuario==null){
-                return response()->json(['message'=>'usuario y/o contraseña incorrecta', 'code'=>'404'], 404);  
+                return response()->json(['message'=>'Usuario y/o contraseña incorrecta', 'code'=>'404'], 404);  
             }
             if (Hash::check($request->passsword, $usuario->passsword))
             {
-                return response()->json(['message'=>'login correcto', 'userId'=>$usuario->id, 'user'=>$usuario->user], 200);      
+                return response()->json(['message'=>'Login correcto', 'userId'=>$usuario->id, 'user'=>$usuario->user], 200);      
             }else{
-                return response()->json(['message'=>'usuario y/o contraseña incorrecta','code'=>'404'], 404);      
+                return response()->json(['message'=>'Usuario y/o contraseña incorrecta','code'=>'404'], 404);      
             }
         }
     }
@@ -151,10 +162,10 @@ class UsersController extends Controller
             $email=Users::where('email',$request->email)->first();
             $usuario=Users::where('user',$request->user)->first();
             if($email){
-                return response()->json(['message'=>'correo existente', 'code'=>'401'], 401);
+                return response()->json(['message'=>'Correo existente', 'code'=>'401'], 401);
             }
              if($usuario){
-                return response()->json(['message'=>'usuario existente', 'code'=>'401'], 401);
+                return response()->json(['message'=>'Usuario existente', 'code'=>'401'], 401);
             }
             $user= new Users();
             $user->nombre= $request->nombre;
@@ -167,7 +178,7 @@ class UsersController extends Controller
             $user->save();
             $userId=$user->id;
             $userUser=$user->user;
-            return response()->json(['message'=>'usuario guardado', 'userId'=>$userId, 'user'=>$userUser], 200);      
+            return response()->json(['message'=>'Usuario guardado', 'userId'=>$userId, 'user'=>$userUser], 200);      
         }
     }
 
@@ -289,7 +300,7 @@ class UsersController extends Controller
                     $user->save();
                     return response()->json(['message'=>'Proceso realizado correctamente'], 200);
                 }else{
-                     return response()->json(['message'=>'correo existente', 'code'=>'422'], 422);
+                     return response()->json(['message'=>'Correo existente', 'code'=>'422'], 422);
                 }
                 
             }
